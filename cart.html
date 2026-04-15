@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>E-Battisseurs - Panier</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=DM+Sans:wght@400;500;600&family=Space+Mono&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<script>tailwind.config={theme:{extend:{colors:{gold:'#C9A84C',dark:'#0A0A0F',dark2:'#12121A'}}}}</script>
+<style>
+body{font-family:'DM Sans',sans-serif;background:#0A0A0F;color:#E8E4DA}
+.text-gradient{background:linear-gradient(135deg,#C9A84C,#E8C97A);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.btn-primary{background:linear-gradient(135deg,#C9A84C,#E8C97A);color:#0A0A0F;font-weight:600;padding:12px 28px;border-radius:4px}
+.btn-secondary{border:1px solid rgba(201,168,76,0.5);color:#C9A84C;padding:12px 28px;border-radius:4px}
+.input-field{background:#12121A;border:1px solid rgba(201,168,76,0.2);color:#E8E4DA;padding:12px 16px;border-radius:4px;width:100%}
+.input-field:focus{outline:none;border-color:#C9A84C}
+.card{background:#12121A;border:1px solid rgba(201,168,76,0.12);border-radius:4px}
+</style>
+</head>
+<body class="min-h-screen">
+
+<!-- Header -->
+<nav class="fixed top-0 left-0 right-0 z-50 bg-dark/90 backdrop-blur-md border-b border-yellow-900/20">
+  <div class="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between">
+    <a href="index.html" class="font-display text-2xl font-bold text-white">E-<span class="text-gold">Battisseurs</span></a>
+    <div class="flex items-center gap-4">
+      <a href="index.html" class="text-gray-400 hover:text-gold">Boutique</a>
+      <a href="#" class="text-gold">Panier (3)</a>
+    </div>
+  </div>
+</nav>
+
+<!-- Cart Section -->
+<section class="pt-24 pb-12">
+  <div class="max-w-6xl mx-auto px-4">
+    <h1 class="font-display text-3xl font-bold mb-8">Votre panier</h1>
+    
+    <div class="grid lg:grid-cols-3 gap-8">
+      <!-- Cart Items -->
+      <div class="lg:col-span-2 space-y-4">
+        <!-- Item 1 -->
+        <div class="card p-4 flex gap-4">
+          <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf33?w=120" class="w-24 h-24 object-cover rounded">
+          <div class="flex-1">
+            <h3 class="font-semibold text-white">Smart Watch Fitness Tracker</h3>
+            <p class="text-sm text-gray-500">Noir / Standard</p>
+            <div class="flex items-center justify-between mt-2">
+              <div class="flex items-center gap-2">
+                <button class="w-8 h-8 rounded bg-dark-2 text-gray-400 hover:text-white">-</button>
+                <span class="w-8 text-center">1</span>
+                <button class="w-8 h-8 rounded bg-dark-2 text-gray-400 hover:text-white">+</button>
+              </div>
+              <span class="text-gold font-bold">$29.99</span>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Item 2 -->
+        <div class="card p-4 flex gap-4">
+          <img src="https://images.unsplash.com/photo-1590658268037-6bf12165a8df?w=120" class="w-24 h-24 object-cover rounded">
+          <div class="flex-1">
+            <h3 class="font-semibold text-white">Wireless Earbuds Pro</h3>
+            <p class="text-sm text-gray-500">Noir</p>
+            <div class="flex items-center justify-between mt-2">
+              <div class="flex items-center gap-2">
+                <button class="w-8 h-8 rounded bg-dark-2 text-gray-400 hover:text-white">-</button>
+                <span class="w-8 text-center">2</span>
+                <button class="w-8 h-8 rounded bg-dark-2 text-gray-400 hover:text-white">+</button>
+              </div>
+              <span class="text-gold font-bold">$79.98</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Summary -->
+      <div class="card p-6 h-fit">
+        <h2 class="font-display text-xl font-semibold text-white mb-4">Résumé</h2>
+        <div class="space-y-2 text-sm border-b border-yellow-900/20 pb-4">
+          <div class="flex justify-between">
+            <span class="text-gray-400">Sous-total</span>
+            <span>$109.97</span>
+          </div>
+          <div class="flex justify-between">
+            <span class="text-gray-400">Livraison</span>
+            <span>$12.99</span>
+          </div>
+          <div class="flex justify-between">
+            <span class="text-gray-400">TVA (20%)</span>
+            <span>$24.59</span>
+          </div>
+        </div>
+        <div class="flex justify-between font-bold text-lg mt-4">
+          <span class="text-white">Total</span>
+          <span class="text-gold">$147.55</span>
+        </div>
+        
+        <!-- Shipping -->
+        <div class="mt-6">
+          <label class="block text-sm text-gray-400 mb-2">Pays de livraison</label>
+          <select class="input-field">
+            <option>France</option>
+            <option>Belgique</option>
+            <option>Suisse</option>
+            <option>Canada</option>
+          </select>
+        </div>
+        
+        <!-- Payment Methods -->
+        <div class="mt-4">
+          <label class="block text-sm text-gray-400 mb-2">Paiement</label>
+          <div class="flex gap-2">
+            <button class="flex-1 py-2 border border-gold rounded bg-gold/10">💳 Visa</button>
+            <button class="flex-1 py-2 border border-gray-700 rounded">🅿️ PayPal</button>
+          </div>
+        </div>
+        
+        <button class="btn-primary w-full mt-6">Commander</button>
+        
+        <p class="text-xs text-gray-500 mt-4 text-center">
+          🔒 Paiement sécurisé par Stripe
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+</body>
+</html>
