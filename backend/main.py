@@ -8,7 +8,7 @@ from fastapi import FastAPI, Request, status
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 
-from backend.api import suppliers, orders, products, payments, logistics, analytics, marketing, crm, compliance, affiliate, orchestrator, auth
+from backend.api import suppliers, orders, products, payments, logistics, analytics, marketing, crm, compliance, affiliate, orchestrator, auth, suppliers_real, payments_real, notifications, email
 from config import settings
 
 @asynccontextmanager
@@ -82,6 +82,10 @@ app.include_router(compliance.router, prefix="/api/v1", tags=["M-10 Compliance"]
 app.include_router(affiliate.router, prefix="/api/v1", tags=["M-11 Affiliation"])
 app.include_router(orchestrator.router, prefix="/api/v1", tags=["M-12 IA"])
 app.include_router(auth.router, prefix="/api/v1", tags=["Auth"])
+app.include_router(suppliers_real.router, prefix="/api/v1", tags=["Suppliers Real"])
+app.include_router(payments_real.router, prefix="/api/v1", tags=["Payments Real"])
+app.include_router(notifications.router, prefix="/api/v1", tags=["Notifications"])
+app.include_router(email.router, prefix="/api/v1", tags=["Email"])
 
 # M-06 Marketing (placeholder)
 # M-07 CRM (placeholder)
