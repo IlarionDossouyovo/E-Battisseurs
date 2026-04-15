@@ -1,0 +1,107 @@
+{
+  "name": "Daily Sourcing Agent",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "hours",
+              "minutesInterval": 0,
+              "triggerType": "everyHour"
+            }
+          ]
+        }
+      },
+      "id": "schedule-trigger",
+      "name": "Daily at 9am",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1,
+      "position": [250, 300]
+    },
+    {
+      "parameters": {
+        "url": "http://api:8000/api/v1/suppliers/aliexpress/products",
+        "method": "GET",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {"name": "page", "value": "1"},
+            {"name": "per_page", "value": "50"}
+          ]
+        }
+      },
+      "id": "fetch-products",
+      "name": "Fetch AliExpress Products",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 3,
+      "position": [450, 300]
+    },
+    {
+      "parameters": {
+        "url": "http://api:8000/api/v1/suppliers/search",
+        "method": "GET",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {"name": "q", "value": "trending"}
+          ]
+        }
+      },
+      "id": "analyze-trends",
+      "name": "Analyze Trends",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 3,
+      "position": [650, 300]
+    },
+    {
+      "parameters": {
+        "url": "http://api:8000/api/v1/products",
+        "method": "POST",
+        "sendBody": true,
+        "specifyBody": "json"
+      },
+      "id": "update-catalog",
+      "name": "Update Catalog",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 3,
+      "position": [850, 300]
+    },
+    {
+      "parameters": {
+        "subject": "Daily Product Update",
+        "body": "Sourcing completed. Updated {{ $json.updated }} products."
+      },
+      "id": "send-notification",
+      "name": "Send Notification",
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 1,
+      "position": [1050, 300]
+    }
+  ],
+  "connections": {
+    "Daily at 9am": {
+      "main": [[
+        {"node": "Fetch AliExpress Products", "type": "main", "index": 0}
+      ]]
+    },
+    "Fetch AliExpress Products": {
+      "main": [[
+        {"node": "Analyze Trends", "type": "main", "index": 0}
+      ]]
+    },
+    "Analyze Trends": {
+      "main": [[
+        {"node": "Update Catalog", "type": "main", "index": 0}
+      ]]
+    },
+    "Update Catalog": {
+      "main": [[
+        {"node": "Send Notification", "type": "main", "index": 0}
+      ]]
+    }
+  },
+  "active": true,
+  "settings": {},
+  "id": "sourcing-workflow"
+}

@@ -40,6 +40,29 @@ npm install
 npm run dev
 ```
 
+## Docker
+
+```bash
+# Development
+docker-compose up -d
+
+# Production
+docker-compose -f docker-compose.yml up -d --build
+```
+
+## N8N
+
+Les workflows d'automatisation sont dans le dossier `n8n/`:
+- `workflow-order.json` - Traitement des commandes
+- `workflow-sourcing.json` - Sourcing quotidien
+- `workflow-chatbot.json` - Support client IA
+
+## API Documentation
+
+Une fois le serveur lancé:
+- Swagger UI: http://localhost:8000/docs
+- ReDoc: http://localhost:8000/redoc
+
 ## License
 
 Propriétaire - ELECTRON Group 2025

@@ -1,0 +1,83 @@
+{
+  "name": "Chatbot Support Workflow",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "chatbot-webhook",
+        "responseMode": "onReceived"
+      },
+      "id": "webhook-trigger",
+      "name": "Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [250, 300]
+    },
+    {
+      "parameters": {
+        "url": "http://api:8000/api/v1/chatbot",
+        "method": "GET",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {"name": "message", "value": "{{ $json.message }}"},
+            {"name": "customer_id", "value": "{{ $json.customer_id }}"}
+          ]
+        }
+      },
+      "id": "ai-response",
+      "name": "Get AI Response",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 3,
+      "position": [450, 300]
+    },
+    {
+      "parameters": {
+        "conditions": [
+          {
+            "value1": "={{ $json.intent }}",
+            "operation": "notEqual",
+            "value2": "unknown"
+          }
+        ]
+      },
+      "id": "check-escalation",
+      "name": "Check Escalation",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1,
+      "position": [650, 300]
+    },
+    {
+      "parameters": {
+        "url": "http://api:8000/api/v1/orders/create-intent",
+        "method": "POST",
+        "sendBody": true
+      },
+      "id": "create-ticket",
+      "name": "Create Ticket",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 3,
+      "position": [850, 450]
+    }
+  ],
+  "connections": {
+    "Webhook": {
+      "main": [[
+        {"node": "Get AI Response", "type": "main", "index": 0}
+      ]]
+    },
+    "Get AI Response": {
+      "main": [[
+        {"node": "Check Escalation", "type": "main", "index": 0}
+      ]]
+    },
+    "Check Escalation": {
+      "main": [[
+        {"node": "Create Ticket", "type": "main", "index": 0}
+      ]]
+    }
+  },
+  "active": true,
+  "settings": {},
+  "id": "chatbot-workflow"
+}

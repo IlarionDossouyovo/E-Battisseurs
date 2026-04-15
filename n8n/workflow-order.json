@@ -1,0 +1,160 @@
+{
+  "name": "Order Processing Workflow",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "order-created",
+        "responseMode": "onReceived",
+        "options": {
+          "rawBody": false
+        }
+      },
+      "id": "webhook-trigger",
+      "name": "Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [250, 300]
+    },
+    {
+      "parameters": {
+        "url": "http://api:8000/api/v1/orders",
+        "method": "POST",
+        "sendBody": true,
+        "specifyBody": "json",
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "customer_id",
+              "value": "{{ $json.customer_id }}"
+            },
+            {
+              "name": "items",
+              "value": "{{ $json.items }}"
+            }
+          ]
+        }
+      },
+      "id": "create-order",
+      "name": "Create Order",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 3,
+      "position": [450, 300]
+    },
+    {
+      "parameters": {
+        "url": "http://api:8000/api/v1/rates",
+        "method": "GET",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "origin_country",
+              "value": "CN"
+            },
+            {
+              "name": "destination_country",
+              "value": "{{ $json.shipping_country }}"
+            }
+          ]
+        }
+      },
+      "id": "get-shipping",
+      "name": "Get Shipping Rates",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 3,
+      "position": [650, 300]
+    },
+    {
+      "parameters": {
+        "url": "http://api:8000/api/v1/compliance/check",
+        "method": "GET",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "product_category",
+              "value": "{{ $json.category }}"
+            },
+            {
+              "name": "destination_country",
+              "value": "{{ $json.shipping_country }}"
+            }
+          ]
+        }
+      },
+      "id": "check-compliance",
+      "name": "Check Compliance",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 3,
+      "position": [850, 300]
+    },
+    {
+      "parameters": {
+        "url": "http://api:8000/api/v1/payments/create-intent",
+        "method": "POST",
+        "sendBody": true,
+        "specifyBody": "json",
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "order_id",
+              "value": "{{ $json.order_id }}"
+            },
+            {
+              "name": "amount",
+              "value": "{{ $json.total }}"
+            }
+          ]
+        }
+      },
+      "id": "process-payment",
+      "name": "Process Payment",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 3,
+      "position": [1050, 300]
+    }
+  ],
+  "connections": {
+    "Webhook": {
+      "main": [[
+        {
+          "node": "Create Order",
+          "type": "main",
+          "index": 0
+        }
+      ]]
+    },
+    "Create Order": {
+      "main": [[
+        {
+          "node": "Get Shipping Rates",
+          "type": "main",
+          "index": 0
+        }
+      ]]
+    },
+    "Get Shipping Rates": {
+      "main": [[
+        {
+          "node": "Check Compliance",
+          "type": "main",
+          "index": 0
+        }
+      ]]
+    },
+    "Check Compliance": {
+      "main": [[
+        {
+          "node": "Process Payment",
+          "type": "main",
+          "index": 0
+        }
+      ]]
+    }
+  },
+  "active": true,
+  "settings": {},
+  "id": "order-workflow",
+  "tags": []
+}
