@@ -1,4 +1,4 @@
-# E-Battisseurs - GLOBALSHIP PRO
+# E-Battisseurs by ELECTRON
 
 Plateforme dropshipping internationale tout-en-un
 

@@ -15,15 +15,15 @@ from config import settings
 async def lifespan(app: FastAPI):
     """Application lifespan handler"""
     # Startup
-    print("🚀 GLOBALSHIP PRO - Démarrage...")
+    print("🚀 E-Battisseurs - Démarrage...")
     print(f"📦 Modules chargés: M-01 à M-12")
     print(f"🌍 Mode: {settings.ENVIRONMENT}")
     yield
     # Shutdown
-    print("📴 GLOBALSHIP PRO - Arrêt...")
+    print("📴 E-Battisseurs - Arrêt...")
 
 app = FastAPI(
-    title="GLOBALSHIP PRO API",
+    title="E-Battisseurs API",
     description="API Plateforme Dropshipping Internationale",
     version="1.0.0",
     lifespan=lifespan,
@@ -51,7 +51,7 @@ async def global_exception_handler(request: Request, exc: Exception):
 async def health_check():
     return {
         "status": "online",
-        "service": "GLOBALSHIP PRO",
+        "service": "E-Battisseurs by ELECTRON",
         "version": "1.0.0",
         "modules": {
             "M-01": "Vitrine",
