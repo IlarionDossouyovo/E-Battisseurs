@@ -1,68 +1,56 @@
 # E-Battisseurs by ELECTRON
+## 🇧🇯 Plateforme Dropshipping Internationale
 
-Plateforme dropshipping internationale tout-en-un
+<p align="center">
+  <img src="https://img.shields.io/badge/Version-1.0.0-gold" alt="Version">
+  <img src="https://img.shields.io/badge/Modules-12-green" alt="Modules">
+  <img src="https://img.shields.io/badge/API-FastAPI-blue" alt="API">
+  <img src="https://img.shields.io/badge/Docker-Ready-purple" alt="Docker">
+</p>
 
-## Modules
+Une plateforme dropshipping internationale tout-en-un avec:
+- 🌏 190+ pays couverts
+- 📦 50M+ produits sources
+- 🤖 12 agents IA pour l'automatisation
+- 🚚 5 transporteurs internationaux
+- 💳 Multi-paiements (Stripe, PayPal, Crypto)
 
-- **M-01** - Moteur de vitrine (Frontend PWA)
-- **M-02** - Intelligence d'approvisionnement (IA)
-- **M-03** - Gestion des commandes
-- **M-04** - Plateforme logistique
-- **M-05** - Passerelle de paiement
-- **M-06** - Pilote automatique marketing
-- **M-07** - CRM et support
-- **M-08** - Réseau de fournisseurs
-- **M-09** - Analytics Pro
-- **M-10** - Moteur de conformité
-- **M-11** - Affilié et revendeur
-- **M-12** - Orchestrateur IA
+## Documentation
 
-## Tech Stack
+- [README.md](./README.md) - Guide complet
+- [API.md](./API.md) - Référence API
+- [CONTRIBUTING.md](./CONTRIBUTING.md) - Contribution
 
-- Frontend: Next.js 14 + Tailwind CSS
-- Backend: FastAPI (Python) + Node.js
-- Database: PostgreSQL + Redis
-- IA: N8N + Claude/GPT
-- Paiements: Stripe, PayPal, Crypto
-
-## Démarrage
+## Démarrage Rapide
 
 ```bash
-# Backend
+# Docker (recommandé)
+docker-compose up -d
+
+# Ou local
 cd backend
 uv venv
 uv sync
-uv run uvicorn main:app --reload
-
-# Frontend
-cd frontend
-npm install
-npm run dev
+uvicorn main:app --reload
 ```
 
-## Docker
+## Modules
 
-```bash
-# Development
-docker-compose up -d
-
-# Production
-docker-compose -f docker-compose.yml up -d --build
-```
-
-## N8N
-
-Les workflows d'automatisation sont dans le dossier `n8n/`:
-- `workflow-order.json` - Traitement des commandes
-- `workflow-sourcing.json` - Sourcing quotidien
-- `workflow-chatbot.json` - Support client IA
-
-## API Documentation
-
-Une fois le serveur lancé:
-- Swagger UI: http://localhost:8000/docs
-- ReDoc: http://localhost:8000/redoc
+| ID | Module | Status |
+|----|--------|--------|
+| M-01 | Vitrine produits | ✅ |
+| M-02 | Sourcing IA | ✅ |
+| M-03 | Commandes | ✅ |
+| M-04 | Logistique | ✅ |
+| M-05 | Paiements | ✅ |
+| M-06 | Marketing | ✅ |
+| M-07 | CRM | ✅ |
+| M-08 | Fournisseurs | ✅ |
+| M-09 | Analytics | ✅ |
+| M-10 | Conformité | ✅ |
+| M-11 | Affiliation | ✅ |
+| M-12 | Orchestrateur IA | ✅ |
 
 ## License
 
-Propriétaire - ELECTRON Group 2025
+Copyright © 2024-2025 ELECTRON Group - Cotonou, Benin
