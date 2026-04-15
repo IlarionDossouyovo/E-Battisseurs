@@ -19,15 +19,11 @@ services:
       - app-network
     restart: unless-stopped
 
-  # PostgreSQL Database
-  postgres:
-    image: postgres:15-alpine
-    environment:
-      POSTGRES_USER: user
-      POSTGRES_PASSWORD: pass
-      POSTGRES_DB: ebattisseurs
+  # Local Database (SQLite for development)
+  localdb:
+    image: alpine:latest
     volumes:
-      - postgres_data:/var/lib/postgresql/data
+      - ./data:/data
     networks:
       - app-network
     restart: unless-stopped

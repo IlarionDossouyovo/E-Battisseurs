@@ -13,7 +13,7 @@ class Settings(BaseSettings):
     DEBUG: bool = True
     
     # Database
-    DATABASE_URL: str = "postgresql+asyncpg://user:pass@localhost:5432/globalship"
+    DATABASE_URL: str = "sqlite:///ebattisseurs.db"
     REDIS_URL: str = "redis://localhost:6379/0"
     
     # Security
